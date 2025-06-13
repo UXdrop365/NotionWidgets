@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Widget Reloj</title>
+  <style>
+    body {
+
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .widget {
+      display: flex;
+      flex-direction: column;
+      background: #333;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      width: 200px;
+    }
+
+    .top {
+      position: relative;
+      display: flex;
+      background: #111;
+      color: white;
+      font-size: 48px;
+      text-align: center;
+      padding: 10px 20px;
+    }
+
+    .ampm {
+      position: absolute;
+      top: 2px;
+      right: 10px;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .time-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .divider {
+      width: 2px;
+      background: #555;
+      margin: 0 10px;
+    }
+
+    .bottom {
+      background: orange;
+      color: white;
+      padding: 5px 20px;
+      font-size: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <div class="top">
+      <div class="ampm" id="ampm">AM</div>
+      <div class="time-block">
+        <div id="hour">--</div>
+      </div>
+      <div class="divider"></div>
+      <div class="time-block">
+        <div id="minute">--</div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div id="day">--</div>
+      <div id="date">--</div>
+    </div>
+  </div>
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+      let hour = now.getHours();
+      const minute = now.getMinutes().toString().padStart(2, '0');
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      const hour12 = hour % 12 || 12;
+
+      document.getElementById('hour').textContent = hour12;
+      document.getElementById('minute').textContent = minute;
+      document.getElementById('ampm').textContent = ampm;
+
+      const days = ['DOM', 'LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB'];
+      const day = days[now.getDay()];
+      const date = now.getDate().toString().padStart(2, '0') + '-' + 
+                   (now.getMonth() + 1).toString().padStart(2, '0');
+
+      document.getElementById('day').textContent = day;
+      document.getElementById('date').textContent = date;
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+</html>
+
+
