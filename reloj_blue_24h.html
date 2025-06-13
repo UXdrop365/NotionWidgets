@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Widget con Día Completo</title>
+  <style>
+    body {
+      background: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .widget {
+      background-color: #c4dafa;
+      color: #333;
+      padding: 20px 25px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 200px;
+    }
+
+    .time {
+      font-size: 48px;
+      font-weight: bold;
+    }
+
+    .date-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .day {
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .date {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget">
+    <div class="time" id="time">--:--</div>
+    <div class="date-container">
+      <div class="day" id="day">--</div>
+      <div class="date" id="date">--</div>
+    </div>
+  </div>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+
+      const hora = now.getHours().toString().padStart(2, '0');
+      const minutos = now.getMinutes().toString().padStart(2, '0');
+      document.getElementById("time").textContent = `${hora}:${minutos}`;
+
+      const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+      const diaSemana = dias[now.getDay()];
+      const diaMes = now.getDate();
+      const mes = meses[now.getMonth()];
+
+      document.getElementById("day").textContent = "Miércoles";
+      document.getElementById("date").textContent = `${diaMes} ${mes}`;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+  </script>
+</body>
+</html>
