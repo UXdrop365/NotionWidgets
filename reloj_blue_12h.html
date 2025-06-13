@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+
+  <title>Reloj Estilo Minimalista</title>
+
+  <style>
+    body {
+      font-family: 'Fjalla One', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contenedor {
+      width: 200px;
+    }
+
+    .hora,
+    .diaSemana {
+      border: 2px solid #000;
+      border-top: none;
+    }
+
+    .hora {
+      display: flex;
+      gap: 2px;
+      border: none;
+    }
+
+    .hora div {
+      background: #000;
+      color: #fff;
+      flex: 1;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      text-align: center;
+      font-size:3em;
+      font-weight: bold;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .diaSemana {
+      padding: 5px;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 2em;
+      font-weight: bold;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    .dia {
+      padding: 5px;
+      text-align: center;
+      font-size: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="contenedor">
+    <div class="hora">
+      <div id="hora"></div>
+      <div id="minutos"></div>
+      <div id="ampm"></div>
+    </div>
+    <div class="diaSemana" id="dia"></div>
+    <div class="dia" id="fecha"></div>
+  </div>
+
+  <script>
+    function actualizarReloj() {
+      var fecha = new Date();
+      var horas = fecha.getHours();
+      var minutos = fecha.getMinutes().toString().padStart(2, '0');
+      var ampm = horas >= 12 ? 'PM' : 'AM';
+
+      horas = horas % 12;
+      horas = horas === 0 ? 12 : horas;
+      var horasTexto = horas.toString().padStart(2, '0');
+
+      document.getElementById('hora').innerHTML = horasTexto;
+      document.getElementById('minutos').innerHTML = minutos;
+      document.getElementById('ampm').innerHTML = ampm;
+
+      const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      var nombreDia = diasSemana[fecha.getDay()];
+      document.getElementById('dia').innerHTML = nombreDia;
+
+      const nombreMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      var nombreMes = nombreMeses[fecha.getMonth()];
+      var dia = fecha.getDate();
+      var ano = fecha.getFullYear();
+      document.getElementById('fecha').innerHTML = dia + " de " + nombreMes + " de " + ano;
+    }
+
+    actualizarReloj();
+    setInterval(actualizarReloj, 1000);
+  </script>
+</body>
+
+</html>
